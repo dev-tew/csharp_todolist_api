@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250101125021_init")]
+    [Migration("20250105225027_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -50,7 +50,7 @@ namespace api.Migrations
 
                     b.HasIndex("TodoListId");
 
-                    b.ToTable("TodoItem");
+                    b.ToTable("TodoItems");
                 });
 
             modelBuilder.Entity("api.Models.TodoList", b =>
@@ -70,7 +70,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TodoList");
+                    b.ToTable("TodoLists");
                 });
 
             modelBuilder.Entity("api.Models.TodoItem", b =>

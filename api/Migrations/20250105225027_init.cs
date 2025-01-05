@@ -12,7 +12,7 @@ namespace api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TodoList",
+                name: "TodoLists",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,11 +22,11 @@ namespace api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoList", x => x.Id);
+                    table.PrimaryKey("PK_TodoLists", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoItem",
+                name: "TodoItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -38,18 +38,18 @@ namespace api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoItem", x => x.Id);
+                    table.PrimaryKey("PK_TodoItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TodoItem_TodoList_TodoListId",
+                        name: "FK_TodoItems_TodoLists_TodoListId",
                         column: x => x.TodoListId,
-                        principalTable: "TodoList",
+                        principalTable: "TodoLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoItem_TodoListId",
-                table: "TodoItem",
+                name: "IX_TodoItems_TodoListId",
+                table: "TodoItems",
                 column: "TodoListId");
         }
 
@@ -57,10 +57,10 @@ namespace api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TodoItem");
+                name: "TodoItems");
 
             migrationBuilder.DropTable(
-                name: "TodoList");
+                name: "TodoLists");
         }
     }
 }

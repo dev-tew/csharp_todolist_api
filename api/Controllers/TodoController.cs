@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
-using api.Dtos.TodoItem;
 using api.Dtos.TodoList;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +26,7 @@ namespace api.Controllers
         [SwaggerOperation(Summary = "Get all TodoLists", Description = "Retrieves all TodoLists from the database.")]
         public IActionResult GetAll()
         {
-            var lists = _context.TodoList?
+            var lists = _context.TodoLists?
                 .Include(list => list.TodoItem) // Include associated TodoItems
                 .ToList()
                 .Select(list => list.TodoListDto());
@@ -38,7 +37,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById([FromRoute] int id)
         {
-            var list = _context.TodoList?
+            var list = _context.TodoLists?
                 .Include(list => list.TodoItem) // Include associated items
                 .FirstOrDefault(list => list.Id == id);
 
@@ -55,7 +54,7 @@ namespace api.Controllers
         {
             var listModel = requestDto.TodoListFromCreateDto();
 
-            _context.TodoList?.Add(listModel);
+            _context.TodoLists?.Add(listModel);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new {id = listModel.Id}, listModel.TodoListDto());
         }
@@ -64,7 +63,7 @@ namespace api.Controllers
         [Route("{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] UpdateTodoListRequestDto requestDto)
         {
-            var listModel = _context.TodoList?.FirstOrDefault(x => x.Id == id);
+            var listModel = _context.TodoLists?.FirstOrDefault(x => x.Id == id);
             
             if (listModel == null)
             {
